@@ -2,10 +2,10 @@
 
 
 
-use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
+use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 
 
@@ -15,6 +15,7 @@ require __DIR__ . "/../vendor/autoload.php";
 
 $container = new Container();
 
+
 AppFactory::setContainer($container);
 
 
@@ -23,11 +24,11 @@ $config = require __DIR__ . "/../app/config.php";
 $config($container);
 
 
+$app = AppFactory::create();
+
+
 $dependencies = require __DIR__ . "/../app/dependencies.php";
 $dependencies($container);
-
-
-$app = AppFactory::create();
 
 
 // middlewares

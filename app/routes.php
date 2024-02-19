@@ -9,8 +9,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (App $app) {
 
-	$app->get("/", function (Request $request, Response $response, $args) {
-		return $this->get("view")->render($response, "home.twig");
-	});
+	$app->get("/", "WebController:home");
 
 };
