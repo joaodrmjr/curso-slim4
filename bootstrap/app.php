@@ -7,7 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use DI\Container;
 use Slim\Views\Twig;
-use Slim\Views\TwigMiddleware;
 
 
 
@@ -19,20 +18,25 @@ $container = new Container();
 AppFactory::setContainer($container);
 
 
-$container->set("view", function ($container) {
-	return Twig::create(__DIR__ . "/../resources/views", ["cache" => __DIR__ . "/../cache/twig"]);
-});
+// configuracoes
+$config = require __DIR__ . "/../app/config.php";
+$config($container);
+
+
+$dependencies = require __DIR__ . "/../app/dependencies.php";
+$dependencies($container);
 
 
 $app = AppFactory::create();
 
 
-$app->add(TwigMiddleware::createFromContainer($app));
+// middlewares
+
+$middleware = require __DIR__ . "/../app/middleware.php";
+$middleware($app);
 
 
-$app->addErrorMiddleware(true, false, false);
+// rotas
 
-
-$app->get("/", function (Request $request, Response $response, $args) {
-	return $this->get("view")->render($response, "home.twig");
-});
+$routes = require __DIR__ . "/../app/routes.php";
+$routes($app);
