@@ -4,9 +4,20 @@
 use Psr\Container\ContainerInterface;
 
 use Slim\Views\Twig;
-
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 return function (ContainerInterface $container) {
+
+	// banco de dados
+	$capsule = new Capsule();
+	$capsule->addConnection($container->get("settings")["database"]);
+	$capsule->setAsGlobal();
+	$capsule->bootEloquent();
+
+	$container->set("db", function ($container) use ($capsule) {
+		return $capsule;
+	});
+	// ---------------------------------
 
 
 	$container->set("view", function ($container) {

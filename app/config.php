@@ -16,6 +16,18 @@ return function (ContainerInterface $container) {
 					"debug" => true,
 					"auto_reload" => true
 				]
+			],
+
+			// database
+			"database" => [
+				'driver' => 'mysql',
+			    'host' => 'localhost',
+			    'database' => 'curso-slim4',
+			    'username' => 'root',
+			    'password' => '',
+			    'charset' => 'utf8',
+			    'collation' => 'utf8_unicode_ci',
+			    'prefix' => ''
 			]
 		];
 	});
