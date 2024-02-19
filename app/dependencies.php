@@ -22,13 +22,19 @@ return function (ContainerInterface $container) {
 
 	$container->set("view", function ($container) {
 		$config = $container->get("settings");
-		return Twig::create($config["view"]["template_path"], $config["view"]["twig"]);
+
+		$view = Twig::create($config["view"]["template_path"], $config["view"]["twig"]);
+
+		return $view;
 	});
 
 
 
 	$container->set("WebController", function ($container) {
 		return new App\Controllers\WebController($container);
+	});
+	$container->set("AuthController", function ($container) {
+		return new App\Controllers\AuthController($container);
 	});
 
 };

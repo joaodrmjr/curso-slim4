@@ -9,6 +9,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (App $app) {
 
-	$app->get("/", "WebController:home");
+	$app->get("/", "WebController:home")->setName("home");
+
+
+	$app->group("/auth", function ($app) {
+
+		$app->get("/login", "AuthController:loginPage")->setName("loginPage");
+
+
+		$app->get("/register", "AuthController:registerPage")->setName("registerPage");
+
+	});
 
 };
