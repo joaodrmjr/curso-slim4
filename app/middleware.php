@@ -8,6 +8,9 @@ return function (App $app) {
 	$config = $app->getContainer()->get("settings");
 
 
+	$app->addRoutingMiddleware();
+
+
 	$app->addErrorMiddleware($config["displayErrorDetails"], false, false);
 
 	// twig view middleware

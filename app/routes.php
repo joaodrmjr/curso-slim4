@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 
-return function (App $app) {
+return function (App $app) use ($container) {
 
 	$app->get("/", "WebController:home")->setName("home");
 
@@ -20,7 +20,7 @@ return function (App $app) {
 
 		$app->get("/register", "AuthController:registerPage")->setName("auth.register");
 
-	});
+	})->add(new \App\Middleware\GhostMiddleware($container));
 
 	$app->group("/user", function ($app) {
 
