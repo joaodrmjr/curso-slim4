@@ -1,1 +1,5 @@
-<p>Mensagens Flash</p>
+{% for msg in flash.success %}
+<div class="sucesso">
+	{{ msg | raw }}
+</div>
+{% endfor %}

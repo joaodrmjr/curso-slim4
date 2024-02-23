@@ -15,6 +15,7 @@ return function (App $app) {
 	$app->group("/auth", function ($app) {
 
 		$app->get("/login", "AuthController:loginPage")->setName("auth.login");
+		$app->post("/login", "AuthController:postLogin");
 
 
 		$app->get("/register", "AuthController:registerPage")->setName("auth.register");

@@ -17,6 +17,14 @@ class AuthController extends Controller {
 	}
 
 
+	public function postLogin(Request $request, Response $response)
+	{
+
+		$this->flash->addMessage("success", "Login realizado com sucesso!");
+		return redirect($request, $response, "home");
+	}
+
+
 	public function registerPage(Request $request, Response $response)
 	{
 		return $this->view->render($response, "auth/register.twig");

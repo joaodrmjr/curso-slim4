@@ -20,6 +20,10 @@ return function (ContainerInterface $container) {
 	// ---------------------------------
 
 
+	$container->set("flash", function ($container) {
+		return new Slim\Flash\Messages();
+	});
+
 	$container->set("auth", function ($container) {
 		return new App\Auth\Auth($container);
 	});
@@ -35,6 +39,8 @@ return function (ContainerInterface $container) {
 			"state" => $container->get("auth")->state(),
 			"user" => $container->get("auth")->user()
 		]);
+
+		$view->getEnvironment()->addGlobal("flash", $container->get("flash")->getMessages());
 
 		return $view;
 	});
