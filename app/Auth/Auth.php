@@ -26,13 +26,21 @@ class Auth {
 		$this->check();
 	}
 
-	// funcao teste
+	// funcao teste (sera apagada)
 	public function loga()
 	{
 		$_SESSION[$this->configs["session"]] = 8;
 
 
 		session_regenerate_id(true);
+	}
+
+
+	public function logout(): void
+	{
+		unset($_SESSION[$this->configs["session"]]);
+		$this->state = self::NONE;
+		$this->user = null;
 	}
 
 	private function check(): void

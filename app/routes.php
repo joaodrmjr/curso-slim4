@@ -24,4 +24,10 @@ return function (App $app) {
 
 	});
 
+	$app->group("/user", function ($app) {
+
+		$app->get("/logout", "AuthController:logout")->setName("user.logout");
+
+	});
+
 };

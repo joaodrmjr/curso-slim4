@@ -22,9 +22,22 @@ class AuthController extends Controller {
 		return $this->view->render($response, "auth/register.twig");
 	}
 
+
+	public function logout(Request $request, Response $response)
+	{
+		// desloga o usuario da sessao
+		$this->auth->logout();
+
+		return redirect($request, $response, "auth.login");
+	}
+
+	// sera apagada (apenas teste)
 	public function loga(Request $request, Response $response)
 	{
 		$this->auth->loga();
+		// redirecionar para a pagina inicial ou qualquer a pagina que seja
+		return redirect($request, $response, "home");
+
 	}
 
 }
