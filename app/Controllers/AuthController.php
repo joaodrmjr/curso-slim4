@@ -20,7 +20,15 @@ class AuthController extends Controller {
 	public function postLogin(Request $request, Response $response)
 	{
 
+		$pass = $this->auth->loginAttemp($_POST);
+
+		if (!$pass) {
+			$this->flash->addMessage("error", $this->auth->error);
+			return redirect($request, $response, "auth.login");
+		}
+
 		$this->flash->addMessage("success", "Login realizado com sucesso!");
+
 		return redirect($request, $response, "home");
 	}
 
@@ -35,17 +43,8 @@ class AuthController extends Controller {
 	{
 		// desloga o usuario da sessao
 		$this->auth->logout();
-
+		$this->flash->addMessage("info", "Sessão encerrada com sucesso!");
 		return redirect($request, $response, "auth.login");
-	}
-
-	// sera apagada (apenas teste)
-	public function loga(Request $request, Response $response)
-	{
-		$this->auth->loga();
-		// redirecionar para a pagina inicial ou qualquer a pagina que seja
-		return redirect($request, $response, "home");
-
 	}
 
 }

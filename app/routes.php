@@ -20,9 +20,6 @@ return function (App $app) {
 
 		$app->get("/register", "AuthController:registerPage")->setName("auth.register");
 
-		// teste
-		$app->get("/loga", "AuthController:loga")->setName("loga");
-
 	});
 
 	$app->group("/user", function ($app) {

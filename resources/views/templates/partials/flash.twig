@@ -3,3 +3,15 @@
 	{{ msg | raw }}
 </div>
 {% endfor %}
+
+{% for msg in flash.error %}
+<div class="erro">
+	{{ msg | raw }}
+</div>
+{% endfor %}
+
+{% for msg in flash.info %}
+<div class="info">
+	{{ msg | raw }}
+</div>
+{% endfor %}

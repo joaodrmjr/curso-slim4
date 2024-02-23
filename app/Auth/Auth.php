@@ -17,6 +17,8 @@ class Auth {
 
 	protected $state, $user;
 
+	public $error, $obj;
+
 	public function __construct($container)
 	{
 		$this->container = $container;
@@ -26,13 +28,35 @@ class Auth {
 		$this->check();
 	}
 
-	// funcao teste (sera apagada)
-	public function loga()
+
+	public function loginAttemp(array $params): bool
 	{
-		$_SESSION[$this->configs["session"]] = 8;
+		if (empty($params["username"]) || empty($params["password"])) {
+			$this->error = "Preencha todos os campos";
+			return false;
+		}
+		if (!$user = User::where("username", $params["username"])->orWhere("email", $params["username"])->first()) {
+			$this->error = "Dados inseridos invalidos";
+			return false;
+		}
+		if (!password_verify($params["password"], $user->password)) {
+			$this->error = "Dados inseridos invalidos";
+			return false;
+		}
 
+		// loga o usuario
+		$this->login($user);
 
-		session_regenerate_id(true);
+		return true;
+	}
+
+	private function login(User $user): void
+	{
+		$_SESSION[$this->configs["session"]] = $user->id;
+		$this->state = $user->admin ? self::ADMIN : self::LOGGED;
+		$this->user = $user;
+
+		// remember
 	}
 
 
