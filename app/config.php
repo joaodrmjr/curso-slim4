@@ -28,6 +28,11 @@ return function (ContainerInterface $container) {
 			    'charset' => 'utf8',
 			    'collation' => 'utf8_unicode_ci',
 			    'prefix' => ''
+			],
+
+			"auth" => [
+				"session" => "user_id",
+				"remember" => "user_r"
 			]
 		];
 	});

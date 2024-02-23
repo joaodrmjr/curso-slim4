@@ -20,10 +20,21 @@ return function (ContainerInterface $container) {
 	// ---------------------------------
 
 
+	$container->set("auth", function ($container) {
+		return new App\Auth\Auth($container);
+	});
+
+
 	$container->set("view", function ($container) {
 		$config = $container->get("settings");
 
 		$view = Twig::create($config["view"]["template_path"], $config["view"]["twig"]);
+
+
+		$view->getEnvironment()->addGlobal("auth", [
+			"state" => $container->get("auth")->state(),
+			"user" => $container->get("auth")->user()
+		]);
 
 		return $view;
 	});

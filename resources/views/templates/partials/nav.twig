@@ -3,11 +3,21 @@
 		<li>
 			<a href="{{ url_for('home') }}">Home</a>
 		</li>
+		{% if auth.state %}
+		<li>
+			<a href="{{ url_for('loginPage') }}">x</a>
+		</li>
+		<li>
+			<a href="{{ url_for('registerPage') }}">Y</a>
+		</li>
+		{% else %}
 		<li>
 			<a href="{{ url_for('loginPage') }}">Login</a>
 		</li>
 		<li>
 			<a href="{{ url_for('registerPage') }}">Cadastro</a>
 		</li>
+		{% endif %}
+		
 	</ul>
 </nav>
