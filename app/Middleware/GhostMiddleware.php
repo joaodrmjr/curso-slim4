@@ -17,14 +17,14 @@ class GhostMiddleware extends Middleware {
 
 	public function __invoke(Request $request, Handle $handler): Response
 	{
-		$response = $handler->handle($request);
 
 		if ($this->container->get("auth")->state() !== Auth::NONE) {
+			// acesso indevido
 			$this->container->get("flash")->addMessage("info", "Acesso indevido :/");
-			return redirect($request, $response, "home");
+			return redirect($request, $handler->handle($request), "home");
 		}
 		
-		return $response;
+		return $handler->handle($request);
 
 	}
 

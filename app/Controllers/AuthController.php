@@ -42,8 +42,8 @@ class AuthController extends Controller {
 	public function logout(Request $request, Response $response)
 	{
 		// desloga o usuario da sessao
-		$this->auth->logout();
 		$this->flash->addMessage("info", "Sessão encerrada com sucesso!");
+		$this->auth->logout();
 		return redirect($request, $response, "auth.login");
 	}
 
