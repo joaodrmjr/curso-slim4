@@ -13,15 +13,39 @@ class Auth {
 	const LOGGED = 1;
 	const ADMIN = 2;
 
-	protected $container;
+	protected $container, $configs;
 
 	protected $state, $user;
 
 	public function __construct($container)
 	{
 		$this->container = $container;
+		$this->configs = $container->get("settings")["auth"];
 
 		// estado da sessao
+		$this->check();
+	}
+
+	// funcao teste
+	public function loga()
+	{
+		$_SESSION[$this->configs["session"]] = 8;
+
+
+		session_regenerate_id(true);
+	}
+
+	private function check(): void
+	{
+		$session = $_SESSION[$this->configs["session"]] ?? null;
+
+		if ($session && $user = User::find($session)) {
+
+			$this->user = $user;
+			$this->state = $user->admin ? self::ADMIN : self::LOGGED;
+			return;
+		}
+
 		$this->state = self::NONE;
 	}
 

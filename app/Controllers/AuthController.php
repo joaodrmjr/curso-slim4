@@ -22,4 +22,9 @@ class AuthController extends Controller {
 		return $this->view->render($response, "auth/register.twig");
 	}
 
+	public function loga(Request $request, Response $response)
+	{
+		$this->auth->loga();
+	}
+
 }

@@ -14,10 +14,13 @@ return function (App $app) {
 
 	$app->group("/auth", function ($app) {
 
-		$app->get("/login", "AuthController:loginPage")->setName("loginPage");
+		$app->get("/login", "AuthController:loginPage")->setName("auth.login");
 
 
-		$app->get("/register", "AuthController:registerPage")->setName("registerPage");
+		$app->get("/register", "AuthController:registerPage")->setName("auth.register");
+
+		// teste
+		$app->get("/loga", "AuthController:loga")->setName("loga");
 
 	});
 

@@ -5,17 +5,20 @@
 		</li>
 		{% if auth.state %}
 		<li>
-			<a href="{{ url_for('loginPage') }}">x</a>
+			<span>{{ auth.user.username }}</span>
 		</li>
 		<li>
-			<a href="{{ url_for('registerPage') }}">Y</a>
+			<a href="#">Logout</a>
 		</li>
 		{% else %}
 		<li>
-			<a href="{{ url_for('loginPage') }}">Login</a>
+			<a href="{{ url_for('auth.login') }}">Login</a>
 		</li>
 		<li>
-			<a href="{{ url_for('registerPage') }}">Cadastro</a>
+			<a href="{{ url_for('auth.register') }}">Cadastro</a>
+		</li>
+		<li>
+			<a href="{{ url_for('loga') }}">LOGA</a>
 		</li>
 		{% endif %}
 		
